@@ -1,0 +1,26 @@
+{
+  "tasks": {
+    "bundle": "deno run -A scripts/build.ts",
+    "bundle:commit": "deno task bundle && git add -u dist && git commit -m 'deno task bundle'"
+  },
+  "fmt": {
+    "exclude": ["./dist/", "./npm/"],
+    "proseWrap": "preserve"
+  },
+  "lint": {
+    "exclude": ["./dist/", "./npm/"]
+  },
+  "imports": {
+    "@cliffy/command": "jsr:@cliffy/command@^1.0.0-rc.8",
+    "@kesin11/gha-utils": "jsr:@kesin11/gha-utils@0.3.0",
+    "@std/assert": "jsr:@std/assert@^1.0.13",
+    "@std/collections": "jsr:@std/collections@^1.1.2",
+    "@deno/dnt": "jsr:@deno/dnt@0.42.3",
+    "@std/encoding": "jsr:@std/encoding@^1.0.10",
+    "@std/yaml": "jsr:@std/yaml@^1.0.11",
+    "esbuild": "npm:esbuild@0.28.0",
+    "@actions/core": "npm:@actions/core@2.0.3",
+    "@actions/github": "npm:@actions/github@7.0.0",
+    "date-fns": "npm:date-fns@4.1.0"
+  }
+}
