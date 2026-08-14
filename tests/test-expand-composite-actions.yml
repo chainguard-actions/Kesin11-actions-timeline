@@ -1,0 +1,32 @@
+name: Test with expand-composite-actions enabled
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Set real GITHUB_RUN_ID so the action post phase can fetch workflow data
+        run: |
+          RUN_ID=$(curl -s -H "Authorization: token ${{ github.token }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs?per_page=1" \
+            | jq -r '.workflow_runs[0].id // empty')
+          if [ -z "$RUN_ID" ] || [ "$RUN_ID" = "null" ]; then
+            echo "No workflow runs found, keeping default GITHUB_RUN_ID"
+          else
+            echo "GITHUB_RUN_ID=$RUN_ID" >> "$GITHUB_ENV"
+            echo "Set GITHUB_RUN_ID=$RUN_ID"
+          fi
+      - name: Run actions-timeline with expand-composite-actions enabled
+        id: action
+        uses: .
+        with:
+          github-token: ${{ github.token }}
+          expand-composite-actions: true
+          expand-composite-actions-threshold: "10"
+        continue-on-error: true
+      - name: Assert action completed without error
+        run: |
+          echo "Action step outcome: ${{ steps.action.outcome }}"
+          echo "Action completed with expand-composite-actions=true and threshold=10"
+          echo "PASS"

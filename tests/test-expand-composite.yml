@@ -1,0 +1,31 @@
+name: Test expand-composite-actions option
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_EVENT_NAME: push
+      GITHUB_REF: refs/heads/main
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Run actions-timeline with expand-composite-actions enabled
+        id: action
+        uses: .
+        with:
+          github-token: ${{ github.token }}
+          expand-composite-actions: "true"
+          expand-composite-actions-threshold: "10"
+        continue-on-error: true
+      - name: Assert action ran (may fail due to missing run context in act)
+        env:
+          OUTCOME: ${{ steps.action.outcome }}
+        run: |
+          echo "action outcome: $OUTCOME"
+          # The action may fail because act doesn't provide a real GitHub run ID,
+          # but it should not be skipped.
+          if [ "$OUTCOME" = "skipped" ]; then
+            echo "FAIL: action was unexpectedly skipped"
+            exit 1
+          fi
+          echo "PASS: action ran with outcome=$OUTCOME"
