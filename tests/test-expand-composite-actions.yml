@@ -1,4 +1,4 @@
-name: Test hide waiting runner time
+name: Test expand composite actions
 on:
   workflow_dispatch:
 jobs:
@@ -11,14 +11,15 @@ jobs:
         continue-on-error: true
         with:
           github-token: ${{ github.token }}
-          show-waiting-runner: "false"
-      - name: Assert action ran with show-waiting-runner disabled
+          expand-composite-actions: "true"
+          expand-composite-actions-threshold: "10"
+      - name: Assert action ran with expand-composite-actions enabled
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
           echo "outcome: $OUTCOME"
           if [ "$OUTCOME" = "success" ]; then
-            echo "PASS: action succeeded with show-waiting-runner=false"
+            echo "PASS: action succeeded with expand-composite-actions=true"
           elif [ "$OUTCOME" = "failure" ]; then
             echo "PASS: action failed gracefully (sentinel repo is not resolvable via GitHub API)"
           else
