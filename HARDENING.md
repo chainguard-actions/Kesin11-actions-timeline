@@ -16,15 +16,9 @@ Action **Kesin11--actions-timeline/v3.1.1** was hardened automatically. 1 findin
 
 ### unpinned-uses (severity: high)
 
-The composite action at .github/actions/setup-deno-with-cache/action.yml references two actions pinned to mutable version tags rather than immutable full SHA commits. This exposes the action to supply-chain attacks if the upstream tag is moved or the repository is compromised.
-
-Failing references:
-- `uses: denoland/setup-deno@v2.0.4` (line 13) — pinned to a version tag, not a SHA
-- `uses: actions/setup-node@v6` (line 16) — pinned to a major version tag, not a SHA
-
-Each should be replaced with the full 40-character commit SHA, e.g.:
-  uses: denoland/setup-deno@<40-char-sha> # v2.0.4
-  uses: actions/setup-node@<40-char-sha> # v6
+The composite action '.github/actions/setup-deno-with-cache/action.yml' references two actions using mutable version tags instead of pinned full-length SHA digests, making the action vulnerable to supply-chain attacks if those tags are moved or compromised:
+- `denoland/setup-deno@v2.0.4` (line 13) — should be pinned to a full 40-character commit SHA
+- `actions/setup-node@v6` (line 16) — should be pinned to a full 40-character commit SHA
 
 Locations:
 
@@ -39,7 +33,7 @@ Locations:
 
 **Notes:**
 
-Pinned both mutable tag references in hardened/action/.github/actions/setup-deno-with-cache/action.yml:
+Pinned both unpinned action references in hardened/action/.github/actions/setup-deno-with-cache/action.yml:
 - `denoland/setup-deno@v2.0.4` → `denoland/setup-deno@667a34cdef165d8d2b2e98dde39547c9daac7282 # v2.0.4`
 - `actions/setup-node@v6` → `actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6`
 
