@@ -10,5 +10,32 @@
 
 **Harden Agent Version:** `2`
 
-Action **Kesin11--actions-timeline/v2.2.6** was hardened automatically. 0 finding(s) were identified and resolved across 0 iteration(s).
+Action **Kesin11--actions-timeline/v2.2.6** was hardened automatically. 1 finding(s) were identified and resolved across 1 iteration(s).
+
+## Findings Fixed
+
+### unpinned-uses (severity: high)
+
+The composite action at .github/actions/setup-deno-with-cache/action.yml references two external actions using mutable version tags instead of pinned full 40-character SHA digests. This exposes the action to supply-chain attacks if the upstream tag is moved or compromised.
+
+Failing references:
+- `uses: denoland/setup-deno@v1` (line 13) — should be pinned to a full SHA, e.g. `denoland/setup-deno@<40-char-sha> # v1`
+- `uses: actions/setup-node@v6` (line 16) — should be pinned to a full SHA, e.g. `actions/setup-node@<40-char-sha> # v6`
+
+Locations:
+
+- `.github/actions/setup-deno-with-cache/action.yml:13`
+- `.github/actions/setup-deno-with-cache/action.yml:16`
+
+## Iteration Notes
+
+### Iteration 1
+
+**Fixes applied:** unpinned-uses
+
+**Notes:**
+
+Pinned both unpinned action references in hardened/action/.github/actions/setup-deno-with-cache/action.yml:
+- denoland/setup-deno@v1 → denoland/setup-deno@11b63cf76cfcafb4e43f97b6cad24d8e8438f62d # v1
+- actions/setup-node@v6 → actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
 
