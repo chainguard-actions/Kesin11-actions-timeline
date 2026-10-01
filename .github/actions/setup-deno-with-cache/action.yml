@@ -10,10 +10,10 @@ runs:
     #     key: deno-${{ github.job }}-${{ runner.os }}-${{ hashFiles('deno.lock') }}
     #     restore-keys: |
     #       deno-${{ github.job }}-${{ runner.os }}-
-    - uses: denoland/setup-deno@667a34cdef165d8d2b2e98dde39547c9daac7282 # v2.0.4
+    - uses: denoland/setup-deno@v2.0.4
       with:
         deno-version-file: .tool-versions
     - name: Setup Node.js for dnt
-      uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+      uses: actions/setup-node@v6
       with:
         node-version-file: .tool-versions
