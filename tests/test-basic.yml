@@ -1,0 +1,25 @@
+name: Test basic usage
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      # The main phase is a no-op; the post phase fetches the workflow run from
+      # the GitHub API (repo-scoped), which cannot resolve the sentinel repo
+      # under the harness, so continue-on-error keeps the post failure from
+      # failing the job.
+      - id: action
+        uses: .
+        continue-on-error: true
+      - name: Assert main phase succeeded
+        env:
+          OUTCOME: ${{ steps.action.outcome }}
+        run: |
+          echo "outcome: $OUTCOME"
+          if [ "$OUTCOME" != "success" ]; then
+            echo "FAIL: expected main phase outcome 'success'"
+            exit 1
+          fi
+          echo "PASS"
