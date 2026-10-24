@@ -14,6 +14,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 | v3.1.0 | [`v3.1.0`](https://github.com/chainguard-actions/Kesin11-actions-timeline/tree/v3.1.0) | [`44c9c17`](https://github.com/Kesin11/actions-timeline/commit/44c9c178ffb2fb1d9859614a3ffa79ccfb77565e) |
 | v3.1.1 | [`v3.1.1`](https://github.com/chainguard-actions/Kesin11-actions-timeline/tree/v3.1.1) | [`7bf7999`](https://github.com/Kesin11/actions-timeline/commit/7bf79990b7c09f5dfb570ac30b814ca597bd538e) |
 | v3.2.0 | [`v3.2.0`](https://github.com/chainguard-actions/Kesin11-actions-timeline/tree/v3.2.0) | [`57fc93f`](https://github.com/Kesin11/actions-timeline/commit/57fc93f20c6da7fbc14063c6d24a2a5627c799ad) |
+| v3.2.1 | [`v3.2.1`](https://github.com/chainguard-actions/Kesin11-actions-timeline/tree/v3.2.1) | [`460b1f8`](https://github.com/Kesin11/actions-timeline/commit/460b1f8a750077029ad3589824d371b200e91dcf) |
 
 ## Privacy
 
